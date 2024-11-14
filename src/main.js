@@ -63,7 +63,11 @@ async function handleSubmit(event) {
     refs.gallery.insertAdjacentHTML('beforeend', markup);
     library.refresh();
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
+    iziToast.error({
+      message: `Please try again later`,
+      position: `bottomRight`,
+    });
   } finally {
     refs.loader.classList.remove('is-visible');
     refs.form.reset();
@@ -92,7 +96,11 @@ async function handleButtonShowMore() {
     }
     refs.button.classList.add('is-visible');
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
+    iziToast.error({
+      message: `Please try again later`,
+      position: `bottomRight`,
+    });
   } finally {
     refs.loader.classList.remove('is-visible');
   }
@@ -101,7 +109,8 @@ async function handleButtonShowMore() {
 function handlePageScroll() {
   const heightCard = refs.gallery.querySelector('li');
   const cardHeight = heightCard.getBoundingClientRect().height;
-  const scrollHeight = cardHeight * 2 + 140;
+  const additionalOffset = 140;
+  const scrollHeight = cardHeight * 2 + additionalOffset;
 
   window.scrollBy({
     top: scrollHeight,
